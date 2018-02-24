@@ -1,0 +1,245 @@
+package br.com.ecvtec.corelibrary.model;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
+@Table(name = "t2001")
+public class INSUMO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "c1_2001")
+	private Integer ID__CHAVE_SEQUENCIAL;
+
+	@Column(name = "c2_2001")
+	@Size(max = 160, message = "NOME_DO_PRODUTO deve possuir no máximo {max} caracteres.")
+	private String NOME_DO_PRODUTO;
+
+	@Column(name = "c3_2001")
+	@Size(max = 40, message = "APELIDO_OU_NOME_GENERICO deve possuir no máximo {max} caracteres.")
+	private String APELIDO_OU_NOME_GENERICO;
+
+	@OneToOne
+	@JoinColumn(name = "c4_2001_5002", foreignKey = @ForeignKey(name = "r4_2001_5002"))
+	@JsonManagedReference
+	private TIPO_VALOR PRODUTO_OU_SERVICO;
+
+	@OneToOne
+	@JoinColumn(name = "c5_2001_5002", foreignKey = @ForeignKey(name = "r5_2001_5002"))
+	@JsonManagedReference
+	private TIPO_VALOR INSUMO_GENERICO_OU_INDIVIDUAL;
+
+	@Column(name = "c6_2001_2001")
+	private INSUMO INSUMO_GENERICO_DE_ORIGEM;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_COMBUSTIVEL TABELA_DE_INSUMO_INSUMO_COMBUSTIVEL;
+
+	@OneToMany(mappedBy = "COMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC_")
+	@JsonBackReference
+	private Set<INSUMO_COMBUSTIVEL> COMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_DETALHE TABELA_DE_INSUMO_INSUMO_DETALHE;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_DOCUMENTO TABELA_DE_INSUMO_INSUMO_DOCUMENTO;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_ENDERECO TABELA_DE_INSUMO_INSUMO_ENDERECO;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_ENTIDADE TABELA_DE_INSUMO_INSUMO_ENTIDADE;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_GRUPO TABELA_DE_INSUMO_INSUMO_GRUPO;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_IMAGEM TABELA_DE_INSUMO_INSUMO_IMAGEM;
+
+	@OneToOne(mappedBy = "TABELA_DE_INSUMO")
+	@JsonManagedReference
+	private INSUMO_VEICULO TABELA_DE_INSUMO_INSUMO_VEICULO;
+
+	@OneToMany(mappedBy = "VEICULO")
+	@JsonBackReference
+	private Set<VIAGEM> VEICULO_VIAGEMs;
+
+	@JsonIgnore
+	public Integer getID__CHAVE_SEQUENCIAL() {
+		return this.ID__CHAVE_SEQUENCIAL;
+	}
+
+	public void setID__CHAVE_SEQUENCIAL(Integer ID__CHAVE_SEQUENCIAL) {
+		this.ID__CHAVE_SEQUENCIAL = ID__CHAVE_SEQUENCIAL;
+	}
+
+	@JsonIgnore
+	public String getNOME_DO_PRODUTO() {
+		return this.NOME_DO_PRODUTO;
+	}
+
+	public void setNOME_DO_PRODUTO(String NOME_DO_PRODUTO) {
+		this.NOME_DO_PRODUTO = NOME_DO_PRODUTO;
+	}
+
+	@JsonIgnore
+	public String getAPELIDO_OU_NOME_GENERICO() {
+		return this.APELIDO_OU_NOME_GENERICO;
+	}
+
+	public void setAPELIDO_OU_NOME_GENERICO(String APELIDO_OU_NOME_GENERICO) {
+		this.APELIDO_OU_NOME_GENERICO = APELIDO_OU_NOME_GENERICO;
+	}
+
+	@JsonIgnore
+	public TIPO_VALOR getPRODUTO_OU_SERVICO() {
+		return this.PRODUTO_OU_SERVICO;
+	}
+
+	public void setPRODUTO_OU_SERVICO(TIPO_VALOR PRODUTO_OU_SERVICO) {
+		this.PRODUTO_OU_SERVICO = PRODUTO_OU_SERVICO;
+	}
+
+	@JsonIgnore
+	public TIPO_VALOR getINSUMO_GENERICO_OU_INDIVIDUAL() {
+		return this.INSUMO_GENERICO_OU_INDIVIDUAL;
+	}
+
+	public void setINSUMO_GENERICO_OU_INDIVIDUAL(TIPO_VALOR INSUMO_GENERICO_OU_INDIVIDUAL) {
+		this.INSUMO_GENERICO_OU_INDIVIDUAL = INSUMO_GENERICO_OU_INDIVIDUAL;
+	}
+
+	/*
+	 * @JsonIgnore public Integer getINSUMO_GENERICO_DE_ORIGEM() { return
+	 * this.INSUMO_GENERICO_DE_ORIGEM; }
+	 * 
+	 * public void setINSUMO_GENERICO_DE_ORIGEM(Integer
+	 * INSUMO_GENERICO_DE_ORIGEM) { this.INSUMO_GENERICO_DE_ORIGEM =
+	 * INSUMO_GENERICO_DE_ORIGEM; }
+	 */
+	@JsonIgnore
+	public INSUMO getINSUMO_GENERICO_DE_ORIGEM() {
+		return this.INSUMO_GENERICO_DE_ORIGEM;
+	}
+
+	public void setINSUMO_GENERICO_DE_ORIGEM(INSUMO INSUMO_GENERICO_DE_ORIGEM) {
+		this.INSUMO_GENERICO_DE_ORIGEM = INSUMO_GENERICO_DE_ORIGEM;
+	}
+
+	@JsonIgnore
+	public INSUMO_COMBUSTIVEL getTABELA_DE_INSUMO_INSUMO_COMBUSTIVEL() {
+		return this.TABELA_DE_INSUMO_INSUMO_COMBUSTIVEL;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_COMBUSTIVEL(INSUMO_COMBUSTIVEL TABELA_DE_INSUMO_INSUMO_COMBUSTIVEL) {
+		this.TABELA_DE_INSUMO_INSUMO_COMBUSTIVEL = TABELA_DE_INSUMO_INSUMO_COMBUSTIVEL;
+	}
+
+	@JsonIgnore
+	public Set<INSUMO_COMBUSTIVEL> getCOMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs() {
+		return this.COMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs;
+	}
+
+	public void setCOMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs(
+			Set<INSUMO_COMBUSTIVEL> COMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs) {
+		this.COMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs = COMBUSTIVEL_GASOLINA_GAS_DIESEL_ALCOOL_LENHA_ETC__INSUMO_COMBUSTIVELs;
+	}
+
+	@JsonIgnore
+	public INSUMO_DETALHE getTABELA_DE_INSUMO_INSUMO_DETALHE() {
+		return this.TABELA_DE_INSUMO_INSUMO_DETALHE;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_DETALHE(INSUMO_DETALHE TABELA_DE_INSUMO_INSUMO_DETALHE) {
+		this.TABELA_DE_INSUMO_INSUMO_DETALHE = TABELA_DE_INSUMO_INSUMO_DETALHE;
+	}
+
+	@JsonIgnore
+	public INSUMO_DOCUMENTO getTABELA_DE_INSUMO_INSUMO_DOCUMENTO() {
+		return this.TABELA_DE_INSUMO_INSUMO_DOCUMENTO;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_DOCUMENTO(INSUMO_DOCUMENTO TABELA_DE_INSUMO_INSUMO_DOCUMENTO) {
+		this.TABELA_DE_INSUMO_INSUMO_DOCUMENTO = TABELA_DE_INSUMO_INSUMO_DOCUMENTO;
+	}
+
+	@JsonIgnore
+	public INSUMO_ENDERECO getTABELA_DE_INSUMO_INSUMO_ENDERECO() {
+		return this.TABELA_DE_INSUMO_INSUMO_ENDERECO;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_ENDERECO(INSUMO_ENDERECO TABELA_DE_INSUMO_INSUMO_ENDERECO) {
+		this.TABELA_DE_INSUMO_INSUMO_ENDERECO = TABELA_DE_INSUMO_INSUMO_ENDERECO;
+	}
+
+	@JsonIgnore
+	public INSUMO_ENTIDADE getTABELA_DE_INSUMO_INSUMO_ENTIDADE() {
+		return this.TABELA_DE_INSUMO_INSUMO_ENTIDADE;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_ENTIDADE(INSUMO_ENTIDADE TABELA_DE_INSUMO_INSUMO_ENTIDADE) {
+		this.TABELA_DE_INSUMO_INSUMO_ENTIDADE = TABELA_DE_INSUMO_INSUMO_ENTIDADE;
+	}
+
+	@JsonIgnore
+	public INSUMO_GRUPO getTABELA_DE_INSUMO_INSUMO_GRUPO() {
+		return this.TABELA_DE_INSUMO_INSUMO_GRUPO;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_GRUPO(INSUMO_GRUPO TABELA_DE_INSUMO_INSUMO_GRUPO) {
+		this.TABELA_DE_INSUMO_INSUMO_GRUPO = TABELA_DE_INSUMO_INSUMO_GRUPO;
+	}
+
+	@JsonIgnore
+	public INSUMO_IMAGEM getTABELA_DE_INSUMO_INSUMO_IMAGEM() {
+		return this.TABELA_DE_INSUMO_INSUMO_IMAGEM;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_IMAGEM(INSUMO_IMAGEM TABELA_DE_INSUMO_INSUMO_IMAGEM) {
+		this.TABELA_DE_INSUMO_INSUMO_IMAGEM = TABELA_DE_INSUMO_INSUMO_IMAGEM;
+	}
+
+	@JsonIgnore
+	public INSUMO_VEICULO getTABELA_DE_INSUMO_INSUMO_VEICULO() {
+		return this.TABELA_DE_INSUMO_INSUMO_VEICULO;
+	}
+
+	public void setTABELA_DE_INSUMO_INSUMO_VEICULO(INSUMO_VEICULO TABELA_DE_INSUMO_INSUMO_VEICULO) {
+		this.TABELA_DE_INSUMO_INSUMO_VEICULO = TABELA_DE_INSUMO_INSUMO_VEICULO;
+	}
+
+	@JsonIgnore
+	public Set<VIAGEM> getVEICULO_VIAGEMs() {
+		return this.VEICULO_VIAGEMs;
+	}
+
+	public void setVEICULO_VIAGEMs(Set<VIAGEM> VEICULO_VIAGEMs) {
+		this.VEICULO_VIAGEMs = VEICULO_VIAGEMs;
+	}
+
+}
